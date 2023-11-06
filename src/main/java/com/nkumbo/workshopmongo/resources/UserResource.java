@@ -1,5 +1,6 @@
 package com.nkumbo.workshopmongo.resources;
 
+import com.nkumbo.workshopmongo.domain.Post;
 import com.nkumbo.workshopmongo.domain.User;
 import com.nkumbo.workshopmongo.dto.UserDTO;
 import com.nkumbo.workshopmongo.services.UserService;
@@ -51,5 +52,11 @@ public class UserResource {
         obj.setId(id);
         obj = service.update(obj);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value="/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        User user = service.findById(id);
+        return ResponseEntity.ok().body(user.getPosts());
     }
 }
